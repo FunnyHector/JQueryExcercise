@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Rollover Images</title>
+  <link href="../_css/site.css" rel="stylesheet">
+  <style>
+    #gallery {
+      float: left;
+      width: 90px;
+      margin-right: 30px;
+      margin-left: 10px;
+      border-right: white 1px dotted;
+    }
+
+    #gallery img {
+      display: inline-block;
+      margin: 0 0 10px 0;
+      border: 1px solid rgb(0, 0, 0);
+    }
+
+    #photo {
+      margin-left: 150px;
+      position: relative;
+    }
+
+    #photo img {
+      position: absolute;
+    }
+  </style>
+  <script src="../_js/jquery.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      let images = $("#gallery").find("img");
+
+      // display a random image when the page is loaded
+      let randomImage = images[Math.floor(Math.random() * (images.length))];
+      $("#photo").html(`<img src="${randomImage.src.replace('small', 'large')}" alt="${randomImage.alt}">`);
+
+
+      // Highlight the image in the left column when hover.
+      images.each(function (i) {
+        let $this = $(this);
+        let imgSrc = $this.attr("src");
+
+
+        $this.hover(
+            function () {
+              $this.attr("src", imgSrc.replace(/(\.\w{3,4}$)/, "_h$1"));
+            },
+            function () {
+              $this.attr("src", imgSrc);
+            }
+        );
+      });
+
+
+    });
+  </script>
+</head>
+
+<body>
+<div class="wrapper">
+  <header>
+    JAVASCRIPT <span class="amp">&amp;</span> jQUERY
+  </header>
+  <div class="content">
+    <div class="main">
+      <h1>Slideshow</h1>
+      <div id="gallery">
+        <a href="../_images/large/slide1.jpg">
+          <img src="../_images/small/slide1.jpg" width="70" height="70" alt="golf balls">
+        </a>
+        <a href="../_images/large/slide2.jpg">
+          <img src="../_images/small/slide2.jpg" width="70" height="70" alt="rock wall">
+        </a>
+        <a href="../_images/large/slide3.jpg">
+          <img src="../_images/small/slide3.jpg" width="70" height="70" alt="old course">
+        </a>
+        <a href="../_images/large/slide4.jpg">
+          <img src="../_images/small/slide4.jpg" width="70" height="70" alt="tees">
+        </a>
+        <a href="../_images/large/slide5.jpg">
+          <img src="../_images/small/slide5.jpg" width="70" height="70" alt="tree">
+        </a>
+        <a href="../_images/large/slide6.jpg">
+          <img src="../_images/small/slide6.jpg" width="70" height="70" alt="ocean course">
+        </a>
+      </div>
+      <div id="photo"></div>
+    </div>
+  </div>
+  <footer>
+    <p>JavaScript &amp; jQuery</p>
+  </footer>
+</div>
+</body>
+</html>
