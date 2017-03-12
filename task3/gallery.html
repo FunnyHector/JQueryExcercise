@@ -32,29 +32,70 @@
 
   <script>
     $(document).ready(function () {
+      /**
+       * Highlight the image in the left column when hover.
+       *
+       * @param images
+       */
+      function highlightGallery(images) {
+        images.each(function () {
+          let $this = $(this);
+          let imgSrc = $this.attr("src");
+
+          $this.hover(
+              function () {
+                $this.attr("src", imgSrc.replace(/(\.\w{3,4}$)/, "_h$1"));
+              },
+              function () {
+                $this.attr("src", imgSrc);
+              }
+          );
+        });
+      }
+
+      /**
+       * Display the given image
+       *
+       * @param image
+       */
+      function displayImage(image) {
+        $("#photo").html(`<img src="${image.src.replace('small', 'large')}" alt="${image.alt}">`);
+      }
+
+      /**
+       * return the next index of the given one in a cycling fashion.
+       *
+       * @param currentId
+       * @param size
+       * @returns {*}
+       */
+      function nextId(currentId, size) {
+        let nextId = currentId + 1;
+        if (nextId >= size) {
+          nextId = 0;
+        }
+        return nextId;
+      }
+
+      // ======================================================================
+
       let images = $("#gallery").find("img");
+      highlightGallery(images);
 
-      // display a random image when the page is loaded
-      let randomImage = images[Math.floor(Math.random() * (images.length))];
-      $("#photo").html(`<img src="${randomImage.src.replace('small', 'large')}" alt="${randomImage.alt}">`);
+      let randomImageId = Math.floor(Math.random() * (images.length));
+      let randomImage = images[randomImageId];
+      displayImage(randomImage);
 
+      // every 30 seconds, the subsequent image in the gallery will be displayed in the photo area.
+      let currentId = randomImageId;
 
-      // Highlight the image in the left column when hover.
-      images.each(function (i) {
-        let $this = $(this);
-        let imgSrc = $this.attr("src");
+      setInterval(function () {
+        currentId = nextId(currentId, images.length);
+        let imageToChange = images[currentId];
+        displayImage(imageToChange);
+      }, 1000);
 
-
-        $this.hover(
-            function () {
-              $this.attr("src", imgSrc.replace(/(\.\w{3,4}$)/, "_h$1"));
-            },
-            function () {
-              $this.attr("src", imgSrc);
-            }
-        );
-      });
-
+      // TODO: Whenever a user clicks on another image in the gallery, the chosen image will be displayed in the photo area. Existing image in the photo area will be removed simultaneously.
 
     });
   </script>

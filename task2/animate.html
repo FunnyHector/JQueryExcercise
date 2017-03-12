@@ -33,29 +33,29 @@
       let mouseOverStyle = {left: "0px", opacity: "1.0"};
       let mouseAwayStyle = {left: "-92px", opacity: "0.2"};
 
-      let fnMouseInCallBack = function () {
+      function fnMouseInCallBack() {
         if (!$dashboard.mouseIsOver()) {
           $dashboard.animate(mouseAwayStyle, duration);
         }
-      };
+      }
 
-      let fnMouseOutCallBack = function () {
+      function fnMouseOutCallBack() {
         if ($dashboard.mouseIsOver()) {
           $dashboard.animate(mouseOverStyle, duration);
         }
-      };
+      }
 
-      let fnMouseIn = function () {
+      function fnMouseIn() {
         if (!$dashboard.is(":animated")) {
           $dashboard.animate(mouseOverStyle, duration, fnMouseInCallBack);
         }
-      };
+      }
 
-      let fnMouseOut = function () {
+      function fnMouseOut() {
         if (!$dashboard.is(":animated")) {
           $dashboard.animate(mouseAwayStyle, duration, fnMouseOutCallBack);
         }
-      };
+      }
 
       $dashboard.hover(fnMouseIn, fnMouseOut);
     })
