@@ -39,6 +39,10 @@
        */
       function highlightGallery(images) {
         images.each(function () {
+
+          // 1. highlight it
+          // 2. set onclick listener
+
           let $this = $(this);
           let imgSrc = $this.attr("src");
 
@@ -61,6 +65,11 @@
       function displayImage(image) {
         $("#photo").html(`<img src="${image.src.replace('small', 'large')}" alt="${image.alt}">`);
       }
+
+      //    function displayImageOnClick(index) {
+      //      let images = $("#gallery").find("img");
+      //      displayImage(images[index]);
+      //    }
 
       /**
        * return the next index of the given one in a cycling fashion.
@@ -93,7 +102,7 @@
         currentId = nextId(currentId, images.length);
         let imageToChange = images[currentId];
         displayImage(imageToChange);
-      }, 1000);
+      }, 30000);
 
       // TODO: Whenever a user clicks on another image in the gallery, the chosen image will be displayed in the photo area. Existing image in the photo area will be removed simultaneously.
 
@@ -110,23 +119,23 @@
     <div class="main">
       <h1>Slideshow</h1>
       <div id="gallery">
-        <a href="../_images/large/slide1.jpg">
-          <img src="../_images/small/slide1.jpg" width="70" height="70" alt="golf balls">
+        <a href="javascript:void(0)">
+          <img id="img-0" src="../_images/small/slide1.jpg" width="70" height="70" alt="golf balls">
         </a>
-        <a href="../_images/large/slide2.jpg">
-          <img src="../_images/small/slide2.jpg" width="70" height="70" alt="rock wall">
+        <a href="javascript:void(0)">
+          <img id="img-1" src="../_images/small/slide2.jpg" width="70" height="70" alt="rock wall">
         </a>
-        <a href="../_images/large/slide3.jpg">
-          <img src="../_images/small/slide3.jpg" width="70" height="70" alt="old course">
+        <a href="javascript:void(0)">
+          <img id="img-2" src="../_images/small/slide3.jpg" width="70" height="70" alt="old course">
         </a>
-        <a href="../_images/large/slide4.jpg">
-          <img src="../_images/small/slide4.jpg" width="70" height="70" alt="tees">
+        <a href="javascript:void(0)">
+          <img id="img-3" src="../_images/small/slide4.jpg" width="70" height="70" alt="tees">
         </a>
-        <a href="../_images/large/slide5.jpg">
-          <img src="../_images/small/slide5.jpg" width="70" height="70" alt="tree">
+        <a href="javascript:void(0)">
+          <img id="img-4" src="../_images/small/slide5.jpg" width="70" height="70" alt="tree">
         </a>
-        <a href="../_images/large/slide6.jpg">
-          <img src="../_images/small/slide6.jpg" width="70" height="70" alt="ocean course">
+        <a href="javascript:void(0)">
+          <img id="img-5" src="../_images/small/slide6.jpg" width="70" height="70" alt="ocean course">
         </a>
       </div>
       <div id="photo"></div>
