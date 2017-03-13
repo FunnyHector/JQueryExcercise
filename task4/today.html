@@ -4,7 +4,31 @@
   <meta charset="UTF-8">
   <title>News Headlines</title>
   <link href="../_css/site.css" rel="stylesheet">
-  <script></script>
+  <style>
+    #news-links li {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    #news-links li a {
+      padding: 5px 10px;
+      background-color: white;
+      color: black !important;
+      text-decoration: none;
+    }
+
+    #news-links li a:hover {
+      background-color: #6E8AC3;
+      color: white !important;
+    }
+
+    #headlines #newsItem {
+      margin-top: 10px;
+      padding: 20px;
+      border: 1px solid white;
+    }
+  </style>
+  <script src="../_js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -12,8 +36,19 @@
   <header>
     JAVASCRIPT <span class="amp">&amp;</span> jQUERY: THE&nbsp;MISSING&nbsp;MANUAL
   </header>
+
   <div class="content">
     <div class="main">
+
+      <div id="headlines">
+        <h1>News Headlines</h1>
+        <ul id="news-links">
+          <li><a href="today.html">Today&#8217;s News</a></li>
+          <li><a href="yesterday.html">Yesterday&#8217;s News</a></li>
+          <li><a href="lastweek.html">Last Week&#8217;s News</a></li>
+        </ul>
+      </div>
+
       <div id="newsItem">
         <h2 class="shadowLine">Today&#8217;s News</h2>
         <h3>Labore et dolore</h3>
@@ -27,8 +62,10 @@
           laboris nisi ut enim ad minim veniam. Ut enim ad minim veniam, lorem ipsum dolor sit amet, ut labore et dolore
           magna aliqua.</p>
       </div>
+
     </div>
   </div>
+
   <footer>
     <p>JavaScript &amp; jQuery: The Missing Manual, 3rd Edition, by <a href="http://sawmac.com/">David McFarland</a>.
       Published by <a href="http://oreilly.com/">O'Reilly Media, Inc</a>.</p>
