@@ -32,44 +32,19 @@
 
   <script>
     $(document).ready(function () {
-      /**
-       * Highlight the image in the left column when hover.
-       *
-       * @param images
-       */
-      function highlightGallery(images) {
-        images.each(function () {
 
-          // 1. highlight it
-          // 2. set onclick listener
-
-          let $this = $(this);
-          let imgSrc = $this.attr("src");
-
-          $this.hover(
-              function () {
-                $this.attr("src", imgSrc.replace(/(\.\w{3,4}$)/, "_h$1"));
-              },
-              function () {
-                $this.attr("src", imgSrc);
-              }
-          );
-        });
-      }
+      // ============ definitions of functions ============
 
       /**
-       * Display the given image
+       * Display the image at displaying area
        *
-       * @param image
+       * @param imageSrc
+       * @param imageAlt
+       * @returns {*}
        */
-      function displayImage(image) {
-        $("#photo").html(`<img src="${image.src.replace('small', 'large')}" alt="${image.alt}">`);
+      function displayImage(imageSrc, imageAlt) {
+        $("#photo").html(`<img src="${imageSrc}" alt="${imageAlt}">`);
       }
-
-      //    function displayImageOnClick(index) {
-      //      let images = $("#gallery").find("img");
-      //      displayImage(images[index]);
-      //    }
 
       /**
        * return the next index of the given one in a cycling fashion.
@@ -86,26 +61,56 @@
         return nextId;
       }
 
-      // ======================================================================
+      // ============ implementation ============
 
-      let images = $("#gallery").find("img");
-      highlightGallery(images);
+      let thumbnails = $("#gallery").find("img");
+      let currentIndex = Math.floor(Math.random() * (thumbnails.length));  // an random index from images
 
-      let randomImageId = Math.floor(Math.random() * (images.length));
-      let randomImage = images[randomImageId];
-      displayImage(randomImage);
+      // 1. set hover listener & set click listener
+      thumbnails.each(function (index) {
+        let thumbnail = $(this);
+        let thumbnailSrc = thumbnail.attr("src");
 
-      // every 30 seconds, the subsequent image in the gallery will be displayed in the photo area.
-      let currentId = randomImageId;
+        let highlightedThumbNail = new Image();
+        highlightedThumbNail.src = thumbnailSrc.replace(/(\.\w{3,4}$)/, '_h$1');
 
+        let imageToDisplay = new Image();
+        imageToDisplay.src = thumbnailSrc.replace('small', 'large');
+        imageToDisplay.alt = thumbnail.alt;
+
+        // hover listener
+        thumbnail.hover(
+            function () {
+              thumbnail.attr("src", highlightedThumbNail.src);
+            },
+            function () {
+              thumbnail.attr("src", thumbnailSrc);
+            }
+        );
+
+        // click listener
+        thumbnail.click(function () {
+          displayImage(imageToDisplay.src, imageToDisplay.alt);
+          currentIndex = index;  // set the rotation index to the clicked image
+        });
+
+        // display an random image after the page is loaded
+        if (index === currentIndex) {
+          displayImage(imageToDisplay.src, imageToDisplay.alt);
+        }
+      });
+
+      // 3. every 30 seconds, the subsequent image in the gallery will be displayed in the photo area.
       setInterval(function () {
-        currentId = nextId(currentId, images.length);
-        let imageToChange = images[currentId];
-        displayImage(imageToChange);
-      }, 30000);
+        currentIndex = nextId(currentIndex, thumbnails.length);
+        let thumbnail = thumbnails[currentIndex];
 
-      // TODO: Whenever a user clicks on another image in the gallery, the chosen image will be displayed in the photo area. Existing image in the photo area will be removed simultaneously.
+        let imageToChange = new Image();
+        imageToChange.src = thumbnail.src.replace('small', 'large');
+        imageToChange.alt = thumbnail.alt;
 
+        displayImage(imageToChange.src, imageToChange.alt);
+      }, 5000);
     });
   </script>
 </head>
